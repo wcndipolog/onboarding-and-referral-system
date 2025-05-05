@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost/onboarding-and-referral-system/';
+    public string $baseURL = 'http://192.168.68.157:80/onboarding-and-referral-system/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
