@@ -137,7 +137,7 @@
     <!-- Modal -->
     <div class="modal fade" id="change-package-modal" tabindex="-1" aria-labelledby="change-package-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
+            <div class="modal-content p-4">
                 <div class="modal-header">
                     <button class="close-modal-wrapper" type="button" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" id="back-arrow">

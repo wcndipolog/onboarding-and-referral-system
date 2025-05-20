@@ -127,8 +127,8 @@
 
     <!-- Modal -->
     <div class="modal fade" id="verify-number-modal" tabindex="-1" aria-labelledby="verify-number-modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered" style="--bs-modal-width: 600px;">
+            <div class="modal-content p-4">
                 <div class="modal-header">
                     <button class="close-modal-wrapper" type="button" data-bs-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" id="back-arrow">
@@ -138,17 +138,30 @@
                     </button>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                <div class="modal-body d-flex flex-column align-items-center gap-3">
+                    <div class="d-flex flex-column align-items-start gap-1 align-self-stretch verify-number-title">
+                        <h3>Verify your account</h3>
+                        <p>Enter the 5-digit code sent to +639560159630</p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center align-self-stretch gap-2 verify-number-text-input">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="form-control verify-number-input text-center" />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="form-control verify-number-input text-center" />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="form-control verify-number-input text-center" />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="form-control verify-number-input text-center" />
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="form-control verify-number-input text-center" />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-2 align-self-stretch">
+                        <div class="verify-number-text">
+                            It may take a minute to receive your code. Didn’t get the code? <a href="#" class="resend-link">Resend Code</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <a href="<?= base_url('pricing_plan') ?>" class="primary-button">Continue</a>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -166,6 +179,39 @@
             });
         });
     </script>
+    <script>
+        const inputs = document.querySelectorAll('.verify-number-input');
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+                if (!/^[0-9]$/.test(value)) {
+                    e.target.value = '';
+                    return;
+                }
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const paste = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, inputs.length);
+                [...paste].forEach((char, i) => {
+                    if (inputs[i]) inputs[i].value = char;
+                });
+                const next = inputs[paste.length] || inputs[inputs.length - 1];
+                next.focus();
+            });
+        });
+    </script>
+
 </body>
 
 </html>
